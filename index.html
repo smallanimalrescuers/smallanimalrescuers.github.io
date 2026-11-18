@@ -43,8 +43,11 @@
     ::-webkit-scrollbar-track { background: #6C2C25; }
     ::-webkit-scrollbar-thumb { background: #EB5E3A; border-radius: 3px; }
     * { -webkit-font-smoothing: antialiased; }
+    .hero-lang { display: none; }
     @media (max-width: 640px) {
-      .hero-section { min-height: auto !important; padding: 150px 20px 36px !important; border: 0 !important; }
+      .hero-lang { display: flex; justify-content: center; margin-bottom: 20px; }
+      .nav-lang.home { display: none; }
+      .hero-section { min-height: auto !important; padding: 122px 20px 36px !important; border: 0 !important; }
       .hero-section { position: relative; z-index: 0; }
       .story-section { padding-top: 24px !important; border: 0 !important; box-shadow: none !important; margin-top: -2px !important; position: relative; z-index: 1; }
       .story-img { width: 100% !important; aspect-ratio: 4 / 5 !important; }
@@ -53,6 +56,8 @@
       .site-footer { padding: 20px !important; }
       .footer-logo { height: 40px !important; display: block; margin: 0 auto 6px !important; border-radius: 6px !important; }
       .footer-copy { margin: 0 !important; color: rgba(248,245,232,0.3) !important; }
+      .nav-adopt { transition: opacity 0.3s, transform 0.3s !important; }
+      .nav-adopt.at-top { opacity: 0; transform: translateY(-8px) !important; pointer-events: none; }
     }
   </style>
 </head>
@@ -339,12 +344,15 @@ function buildPreFillUrl(form, puppy) {
 }
 
 // ─── Language toggle ──────────────────────────────────────────────────────────
-function LangToggle({ lang, setLang }) {
+function LangToggle({ lang, setLang, onLight = false }) {
+  const on  = onLight ? C.brown : C.cream;
+  const off = onLight ? 'rgba(108,44,37,0.6)' : 'rgba(248,245,232,0.55)';
+  const offB= onLight ? 'rgba(108,44,37,0.3)' : 'rgba(248,245,232,0.3)';
   const btn = (code, label) => (
     <button onClick={() => setLang(code)} style={{
-      background: lang === code ? C.cream : 'transparent',
-      color: lang === code ? C.brown : 'rgba(248,245,232,0.55)',
-      border: `1.5px solid ${lang === code ? C.cream : 'rgba(248,245,232,0.3)'}`,
+      background: lang === code ? on : 'transparent',
+      color: lang === code ? (onLight ? C.cream : C.brown) : off,
+      border: `1.5px solid ${lang === code ? on : offB}`,
       borderRadius: 50, padding: '4px 12px', fontSize: 12, fontWeight: 700,
       cursor: 'pointer', fontFamily: "'Poppins',sans-serif",
       transition: 'all 0.2s', letterSpacing: '0.04em',
@@ -411,8 +419,9 @@ function FixedDog() {
 function Nav({ onHome, lang, setLang, isHome }) {
   const T = TR[lang];
   const [scrolled, setScrolled] = React.useState(false);
+  const [pastHero, setPastHero] = React.useState(false);
   React.useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
+    const fn = () => { setScrolled(window.scrollY > 40); setPastHero(window.scrollY > 320); };
     window.addEventListener('scroll', fn);
     return () => window.removeEventListener('scroll', fn);
   }, []);
@@ -430,10 +439,10 @@ function Nav({ onHome, lang, setLang, isHome }) {
         <button onClick={onHome} style={{background:'none',border:'none',cursor:'pointer',padding:0,display:'flex',alignItems:'center'}}>
           <img src="assets/logooo.png" alt="Small Animal Rescuers" style={{height:72,borderRadius:10}}/>
         </button>
-        <LangToggle lang={lang} setLang={setLang}/>
+        <div className={'nav-lang' + (isHome ? ' home' : '')}><LangToggle lang={lang} setLang={setLang}/></div>
       </div>
       {isHome && (
-        <a href="#puppies" style={{
+        <a href="#puppies" className={'nav-adopt' + (pastHero ? '' : ' at-top')} style={{
           background:C.terracotta, color:C.cream, padding:'10px 26px', borderRadius:50,
           fontFamily:"var(--font-body),sans-serif", fontWeight:700, fontSize:14,
           textDecoration:'none', transition:'transform 0.2s,box-shadow 0.2s', display:'inline-block',
@@ -447,7 +456,7 @@ function Nav({ onHome, lang, setLang, isHome }) {
 }
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
-function Hero({ onAdopt }) {
+function Hero({ onAdopt, setLang }) {
   const lang = React.useContext(LangContext);
   const T = TR[lang];
   return (
@@ -457,6 +466,7 @@ function Hero({ onAdopt }) {
       padding:'120px clamp(20px,5vw,80px) 80px', textAlign:'center', position:'relative', overflow:'hidden',
     }}>
       <div style={{position:'relative', zIndex:1, maxWidth: lang==='el' ? 960 : 700}}>
+        <div className="hero-lang"><LangToggle lang={lang} setLang={setLang} onLight/></div>
         <h1 style={{
           fontSize: lang==='el' ? 'clamp(38px,5.5vw,64px)' : 'clamp(48px,8vw,92px)', fontWeight:800, lineHeight:1.06,
           color:C.dark, marginBottom:24, whiteSpace:'pre-line',
@@ -809,7 +819,7 @@ function App() {
       <Nav onHome={goHome} lang={lang} setLang={setLang} isHome={!selected}/>
       {!selected ? (
         <>
-          <Hero onAdopt={scrollToPuppies}/>
+          <Hero onAdopt={scrollToPuppies} setLang={setLang}/>
           <Story/>
           <PuppiesGrid onSelectPuppy={goToPuppy}/>
           <HowToAdopt onStart={scrollToPuppies}/>
