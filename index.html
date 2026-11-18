@@ -47,6 +47,8 @@
       .hero-section { min-height: auto !important; padding: 110px 20px 36px !important; border: 0 !important; }
       .story-section { padding-top: 24px !important; border: 0 !important; box-shadow: none !important; }
       .story-img { width: 100% !important; aspect-ratio: 4 / 5 !important; }
+      .about-img { width: 100% !important; }
+      .about-section { padding-top: 48px !important; }
     }
   </style>
 </head>
@@ -614,9 +616,9 @@ function HowToAdopt({ onStart }) {
 function AboutUs() {
   const T = TR[React.useContext(LangContext)];
   return (
-    <section style={{background:C.cream, padding:'80px clamp(20px,5vw,80px)'}}>
+    <section className="about-section" style={{background:C.cream, padding:'80px clamp(20px,5vw,80px)'}}>
       <div style={{maxWidth:920, margin:'0 auto', display:'flex', gap:48, alignItems:'stretch', flexWrap:'wrap'}}>
-        <img src="assets/about-us.jpg" alt="Small Animal Rescuers" style={{
+        <img className="about-img" src="assets/about-us.jpg" alt="Small Animal Rescuers" style={{
           width:'clamp(220px,30vw,320px)', aspectRatio:'1/1', objectFit:'cover', borderRadius:24,
           flexShrink:0, boxShadow:'0 10px 32px rgba(108,44,37,0.22)',
         }}/>
