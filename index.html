@@ -50,6 +50,9 @@
       .story-img { width: 100% !important; aspect-ratio: 4 / 5 !important; }
       .about-img { width: 100% !important; }
       .about-section { padding-top: 48px !important; }
+      .site-footer { padding: 20px !important; }
+      .footer-logo { height: 40px !important; display: block; margin: 0 auto 6px !important; border-radius: 6px !important; }
+      .footer-copy { margin: 0 !important; color: rgba(248,245,232,0.3) !important; }
     }
   </style>
 </head>
@@ -639,9 +642,9 @@ function AboutUs() {
 function Footer() {
   const T = TR[React.useContext(LangContext)];
   return (
-    <footer style={{background:C.brownDark,padding:'20px 20px',textAlign:'center'}}>
-      <img src="assets/logooo.png" alt="Small Animal Rescuers" style={{height:40,borderRadius:6,marginBottom:6,opacity:0.88,display:'block',margin:'0 auto 6px'}}/>
-<p style={{color:'rgba(248,245,232,0.3)',fontSize:12,margin:0}}>{T.footerCopy}</p>
+    <footer className="site-footer" style={{background:C.brownDark,padding:'56px 40px',textAlign:'center'}}>
+      <img className="footer-logo" src="assets/logooo.png" alt="Small Animal Rescuers" style={{height:60,borderRadius:8,marginBottom:16,opacity:0.88}}/>
+<p className="footer-copy" style={{color:'rgba(248,245,232,0.18)',fontSize:12,marginTop:20}}>{T.footerCopy}</p>
     </footer>
   );
 }
