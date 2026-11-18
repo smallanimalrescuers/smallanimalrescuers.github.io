@@ -27,6 +27,9 @@
     h1 { font-weight: 700 !important; }
     h2 { font-weight: 700 !important; font-size: clamp(42px, 6vw, 72px) !important; }
     h3 { font-weight: 700 !important; font-size: clamp(28px, 4vw, 40px) !important; }
+    body[data-lang="el"] h2 { font-size: clamp(34px, 4.8vw, 56px) !important; }
+    body[data-lang="el"] h3 { font-size: clamp(22px, 3vw, 30px) !important; }
+    body[data-lang="el"] h3.step-title { font-size: clamp(18px, 1.9vw, 22px) !important; }
   </style>
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
@@ -55,31 +58,35 @@ const TR = {
   en: {
     adoptBtn:       "Adopt a puppy",
     location:       "📍 Pieria, Greece",
-    heroHeadline:   "8 puppies looking for a forever home",
-    heroSub:        "Born in a quiet village in Pieria, found at just 15 days old. Raised with care, ready for their forever homes.",
+    heroHeadline:   "Greek puppies looking for a forever home",
+    heroSub:        "They were found at just 15 days old. Nine months, a lot of vet visits and plenty of belly rubs later, they're ready to go home.",
     applyToAdopt:   "Apply to adopt",
     meetThem:       "Meet them",
     theirStory:     "Their story",
-    storyP1:        "In the spring of 2025, a litter of eight was found abandoned in a village in Pieria, Northern Greece — barely 15 to 20 days old, eyes still adjusting to the world. Small Animal Rescuers took them in, bottle-fed them round the clock, and watched them grow into the bold, loving, ridiculous creatures they are today.",
-    storyP2:        "They're vaccinated, dewormed, and full of love. Now they just need you.",
+    storyP1:        "On 31 March 2026, we rescued a litter of eight puppies and their mum from a village in Pieria, Northern Greece. The puppies were 40 days old.",
+    storyP2:        "Since then they've had their vet visits, their vaccinations and a home to grow up in. They've lived alongside four cats and spent time with children, so family life won't be new to them.",
+    storyP3:        "Now they're 9 months old, vaccinated, microchipped and ready to travel to the EU or UK from 1 December. All they need is a family of their own.",
     meetPuppies:    "Meet the puppies",
-    meetPuppiesSub: "Each one is a whole personality. Click to learn more and apply to adopt.",
+    meetPuppiesSub: "All the dogs are very easygoing and none is aggressive. Each one is a whole personality — click to learn more and apply to adopt.",
     available:      "AVAILABLE",
-    meetArrow:      n => `Meet ${n} →`,
+    unavailable:    "UNAVAILABLE",
+    unavailableMsg: n => `${n} is no longer available for adoption.`,
+    meetArrow:      (n, g) => `Meet ${n} →`,
     howToAdopt:     "How to adopt",
     steps: [
-      { n:"01", title:"Pick a puppy",      desc:"Browse all eight and find the one that speaks to you." },
+      { n:"01", title:"Pick a puppy",      desc:"Read about each puppy and find the one who fits your life." },
       { n:"02", title:"Fill out the form", desc:"Tell us about your home and lifestyle. About 5–10 minutes." },
       { n:"03", title:"We'll be in touch", desc:"We review every application and reply within a few days." },
     ],
     startApp:       "Start the application",
-    vetCosts:       "Veterinary costs after adoption are the adopter's responsibility.",
-    vetCostsShort:  "Vet costs after adoption are the adopter's responsibility",
+    vetCosts:       "Adoption fee, home check and flight costs apply. After adoption, vet care is the adopter's responsibility.",
+    vetCostsShort:  "Adoption fee, home check and flight costs apply. After adoption, vet care is the adopter's responsibility.",
     footerLocation: "Pieria, Greece",
     footerCopy:     "© 2026 Small Animal Rescuers. All puppies deserve a home.",
     backAll:        "← All puppies",
-    months:         "~3 months",
+    months:         "~9 months",
     available2:     "AVAILABLE",
+    unavailable2:   "UNAVAILABLE",
     applyFor:       n => `Apply to adopt ${n}`,
     alsoAvail:      "Also available",
     adoptName:      n => `Adopt ${n}`,
@@ -122,36 +129,45 @@ const TR = {
     btnBack:        s => s > 1 ? "← Back" : "← Cancel",
     btnContinue:    "Continue →",
     btnFinalise:    "Finalise application →",
+    healthLabel:    "Health",
+    neuteredLabel:  "Neutered",
+    aboutUsHeading: "About us",
+    aboutUsP1:      "We're Small Animal Rescuers, a small group of independent rescuers in Greece. We've helped animals across Europe, Africa and Asia — from puppies to baby bats. Because we travel a lot, we help wherever we can: from getting an animal to the vet and covering the bills, to giving them a place to stay.",
+    aboutUsP2:      "We're not a big organisation. Every puppy you see here has been fed, treated and cuddled by one of us, and we know each of them by name and by habit. That's why we're careful about who adopts, and why we stay in touch once they've gone home.",
   },
   el: {
-    adoptBtn:       "Υιοθέτησε ένα κουτάβι",
+    adoptBtn:       "Θέλω να υιοθετήσω",
     location:       "📍 Πιερία, Ελλάδα",
-    heroHeadline:   "8 κουτάβια ψάχνουν για μόνιμο σπίτι",
-    heroSub:        "Γεννημένα σε ένα ήσυχο χωριό στην Πιερία, βρέθηκαν μόλις 15 ημερών. Μεγάλωσαν με φροντίδα και αγάπη, έτοιμα για το μόνιμο σπίτι τους.",
-    applyToAdopt:   "Κάνε αίτηση υιοθεσίας",
+    heroHeadline:   "Κουτάβια από την Ελλάδα\nψάχνουν μόνιμο σπίτι",
+    heroSub:        "Τα βρήκαμε 15 ημερών και τα μεγαλώσαμε σαν δικά μας. Μετά από εννιά μήνες φροντίδας και παιχνιδιού, τώρα ψάχνουμε ανθρώπους που θα τα αγαπήσουν το ίδιο.",
+    applyToAdopt:   "Θέλω να υιοθετήσω",
     meetThem:       "Γνώρισέ τα",
     theirStory:     "Η ιστορία τους",
-    storyP1:        "Την άνοιξη του 2025, μια φωλιά οκτώ κουταβιών βρέθηκε εγκαταλελειμμένη σε ένα χωριό στην Πιερία, Βόρεια Ελλάδα — μόλις 15 με 20 ημερών, με τα ματάκια τους να μόλις ανοίγουν. Η Small Animal Rescuers τα φιλοξένησε, τα έθρεψε με μπιμπερό ανά πάσα ώρα και τα παρακολούθησε να μεγαλώνουν στα τολμηρά, αγαπησιάρικα πλάσματα που είναι σήμερα.",
-    storyP2:        "Είναι εμβολιασμένα, αποπαρασιτωμένα και γεμάτα αγάπη. Τώρα χρειάζονται μόνο εσένα.",
+    storyP1:        "Στις 31 Μαρτίου 2026 σώσαμε οκτώ μικρές μπουκίτσες μαζί με τη μαμά τους από ένα χωριό της Πιερίας. Ήταν μόλις 40 ημερών.",
+    storyP2:        "Από εκείνη τη μέρα τα φροντίζουμε εμείς: κτηνίατρος, εμβόλια, φαγητό και ένα σπίτι να μεγαλώσουν. Έχουν μεγαλώσει με τις τέσσερις γατούλες μας και έχουν παίξει με παιδιά, οπότε η ζωή σε οικογένεια δεν τους είναι κάτι άγνωστο.",
+    storyP3:        "Σήμερα είναι 9 μηνών, εμβολιασμένα, με μικροτσιπάκια και έτοιμα να ταξιδέψουν σε χώρες της Ευρώπης ή στο Ηνωμένο Βασίλειο από την 1η Δεκεμβρίου. Το μόνο που τους λείπει είναι μια δική τους οικογένεια.",
     meetPuppies:    "Γνώρισε τα κουτάβια",
-    meetPuppiesSub: "Το καθένα έχει τη δική του προσωπικότητα. Κλικ για να μάθεις περισσότερα και να κάνεις αίτηση υιοθεσίας.",
+    meetPuppiesSub: "Όλα τα σκυλάκια έχουν εξαιρετική συμπεριφορά προς ανθρώπους και γάτες και κανένα τους δεν είναι επιθετικό. Μάθε περισσότερα για τις προσωπικότητές τους και ξεκίνα την αίτηση υιοθεσίας σου.",
     available:      "ΔΙΑΘΕΣΙΜΟ",
-    meetArrow:      n => `Γνώρισε τον/την ${n} →`,
+    unavailable:    "ΜΗ ΔΙΑΘΕΣΙΜΟ",
+    unavailableMsg: n => `Ο/Η ${n} δεν είναι πλέον διαθέσιμος/η για υιοθεσία.`,
+    meetArrow:      (n, g) => `Γνώρισέ ${g==="Female"?"την":"τον"} ${n} →`,
     howToAdopt:     "Πώς να υιοθετήσεις",
     steps: [
-      { n:"01", title:"Διάλεξε ένα κουτάβι",    desc:"Δες και τα οκτώ και βρες αυτό που σου μιλάει." },
-      { n:"02", title:"Συμπλήρωσε τη φόρμα",     desc:"Πες μας για το σπίτι και τον τρόπο ζωής σου. Περίπου 5–10 λεπτά." },
-      { n:"03", title:"Θα επικοινωνήσουμε",       desc:"Εξετάζουμε κάθε αίτηση και απαντάμε μέσα σε λίγες μέρες." },
+      { n:"01", title:"Διάλεξε κουτάβι",          desc:"Διάβασε για το καθένα και βρες αυτό που ταιριάζει στη ζωή σου." },
+      { n:"02", title:"Συμπλήρωσε τη φόρμα",       desc:"Πες μας για το σπίτι και την καθημερινότητά σου. Θα σου πάρει 5 με 10 λεπτά." },
+      { n:"03", title:"Θα επικοινωνήσουμε μαζί σου", desc:"Διαβάζουμε κάθε αίτηση και απαντάμε μέσα σε λίγες μέρες." },
     ],
     startApp:       "Ξεκίνα την αίτηση",
-    vetCosts:       "Τα κτηνιατρικά έξοδα μετά την υιοθεσία είναι ευθύνη του υιοθετούντος.",
-    vetCostsShort:  "Τα κτηνιατρικά έξοδα μετά την υιοθεσία είναι ευθύνη του υιοθετούντος",
+    vetCosts:       "Η υιοθεσία έχει κόστος, γίνεται έλεγχος σπιτιού και υπάρχουν έξοδα μεταφοράς, εάν το σκυλάκι πρέπει να ταξιδέψει στην τοποθεσία σου. Μετά την υιοθεσία, την κτηνιατρική φροντίδα την αναλαμβάνει η νέα οικογένεια.",
+    vetCostsShort:  "Η υιοθεσία έχει κόστος, γίνεται έλεγχος σπιτιού και υπάρχουν έξοδα μεταφοράς, εάν το σκυλάκι πρέπει να ταξιδέψει στην τοποθεσία σου. Μετά την υιοθεσία, την κτηνιατρική φροντίδα την αναλαμβάνει η νέα οικογένεια.",
     footerLocation: "Πιερία, Ελλάδα",
     footerCopy:     "© 2026 Small Animal Rescuers. Όλα τα κουτάβια αξίζουν ένα σπίτι.",
     backAll:        "← Όλα τα κουτάβια",
-    months:         "~3 μηνών",
+    months:         "~9 μηνών",
     available2:     "ΔΙΑΘΕΣΙΜΟ",
-    applyFor:       n => `Αίτηση υιοθεσίας για τον/την ${n}`,
+    unavailable2:   "ΜΗ ΔΙΑΘΕΣΙΜΟ",
+    applyFor:       (n, g) => `Αίτηση υιοθεσίας για ${g==="Female"?"την":"τον"} ${n}`,
     alsoAvail:      "Επίσης διαθέσιμα",
     adoptName:      n => `Υιοθέτησε τον/την ${n}`,
     appSent:        "Η αίτηση στάλθηκε!",
@@ -198,6 +214,11 @@ const TR = {
     btnBack:        s => s > 1 ? "← Πίσω" : "← Άκυρο",
     btnContinue:    "Συνέχεια →",
     btnFinalise:    "Ολοκλήρωση αίτησης →",
+    healthLabel:    "Υγεία",
+    neuteredLabel:  "Στειρωμένο",
+    aboutUsHeading: "Ποιοι είμαστε",
+    aboutUsP1:      "Είμαστε οι Small Animal Rescuers, μια μικρή ομάδα ανεξάρτητων διασωστών στην Ελλάδα. Έχουμε βοηθήσει ζωάκια σε Ευρώπη, Αφρική και Ασία, από κουτάβια μέχρι και νυχτεριδάκια. Επειδή ταξιδεύουμε συχνά, βοηθάμε όπου μπορούμε: από τη μεταφορά στον κτηνίατρο και την κάλυψη των κτηνιατρικών εξόδων, μέχρι τη στέγη για το ζωάκι.",
+    aboutUsP2:      "Δεν είμαστε μεγάλος οργανισμός. Κάθε κουτάβι που βλέπεις εδώ το έχει ταΐσει, φροντίσει και αγκαλιάσει κάποιος από εμάς, και τα ξέρουμε ένα ένα, με το όνομα και τα χούγια τους. Γι' αυτό προσέχουμε πού θα πάνε, και γι' αυτό μένουμε σε επαφή και μετά την υιοθεσία.",
   },
 };
 
@@ -230,54 +251,60 @@ const C = {
 
 // ─── Puppy data ───────────────────────────────────────────────────────────────
 const PUPPIES = [
-  { id:"lucky",    name:"Lucky",    gender:"Male",   photoPos:"center top",
-    photos:["assets/lucky01.png","assets/lucky02.png","assets/lucky03.png","assets/lucky04.png"],
-    en:{ trait:"The fearless explorer",    personality:["Adventurous","Social","Confident"],
-      description:"Lucky lives up to his name — the first to stumble out of the box, first to eat, first to make friends with everyone. Bold, curious, and impossibly charming. Give him a yard and he'll map every inch of it." },
-    el:{ trait:"Ο ατρόμητος εξερευνητής", personality:["Τολμηρός","Κοινωνικός","Σίγουρος"],
-      description:"Ο Lucky αξίζει το όνομά του — ο πρώτος που σηκώθηκε από το κουτί, πρώτος να φάει, πρώτος να κάνει φίλους με όλους. Τολμηρός, περίεργος και αμέτρητα γοητευτικός. Δώσε του μια αυλή και θα χαρτογραφήσει κάθε γωνιά της." } },
-  { id:"biggie",   name:"Biggie",   gender:"Male",   photoPos:"center 35%",
+  { id:"cinnamon", name:"Cinnamon", gender:"Female", photoPos:"center 50%",
+    cover:"assets/cinnamon_cover.jpg",
+    photos:["assets/cinnamon_01.jpg","assets/cinnamon_03.jpg","assets/cinnamon_04.jpg","assets/cinnamon_05.jpg"],
+    video:"assets/cinnamon_new_video.mp4", videoPoster:"assets/cinnamon_new_poster.jpg",
+    en:{ trait:"The cheeky", coat:"Shorthair, beige", health:"Vaccinated and microchipped", neutered:"Yes", personality:["Friendly","Confident","Playful"],
+      description:"he's the smallest of her siblings but that doesn't stop her from being the center attention. She's friendly, confident and always up for fun.\n\nShe needs no time to warm up. She walks up to every person, dog and cat as if they've already met, and within minutes she's playing with you like you've known each other for years." },
+    el:{ trait:"Η χαριτωμένη", coat:"Κοντό, υπόξανθο", health:"Εμβολιασμένη, με μικροτσίπ", neutered:"Ναι", personality:["Κοινωνική","Θαρραλέα","Παιχνιδιάρα"],
+      description:"Η Cinnamon είναι η πιο μικρή της γέννας, αλλά δεν δείχνει να το έχει πάρει χαμπάρι. Είναι φιλική, θαρραλέα και πάντα έτοιμη για παιχνίδι.\n\nΔεν της χρειάζεται χρόνος για να σε συμπαθήσει. Πλησιάζει κάθε άνθρωπο, σκύλο και γάτα σαν να γνωρίζονται από πριν, και σε λίγα λεπτά παίζει μαζί σου σαν να είστε φίλοι χρόνια." } },
+  { id:"tupac", name:"Tupac", gender:"Male", photoPos:"center 55%",
+    cover:"assets/tupac_cover.jpg",
+    photos:["assets/tupac_01.jpg","assets/tupac_03.jpg","assets/tupac_04.jpg","assets/tupac_05.jpg"],
+    video:"assets/tupac_new_video.mp4", videoPoster:"assets/tupac_new_poster.jpg",
+    en:{ trait:"The people lover", coat:"Long hair, multicoloured", health:"Vaccinated and microchipped", neutered:"No", personality:["Cuddly","Funny","Playful"],
+      description:"Tupac has never once managed to play it cool when someone arrives at the gate. He's warm, funny and happiest when he's getting cuddles, attention, or both. He also has a long, multicoloured coat that turns heads wherever he goes." },
+    el:{ trait:"Ο αγαπησιάρης", coat:"Μακρύ, πολύχρωμο", health:"Εμβολιασμένος, με μικροτσίπ", neutered:"Όχι", personality:["Χαδιάρης","Αστείος","Παιχνιδιάρης"],
+      description:"Ο Tupac δεν έχει καταφέρει ποτέ να κρύψει τον ενθουσιασμό του όταν κάποιος έρχεται στην αυλόπορτα. Είναι τρυφερός, αστείος και πιο ευτυχισμένος από ποτέ όταν του δίνεις χάδια, προσοχή ή και τα δύο. Και με αυτό το μακρύ, πολύχρωμο τρίχωμα, δύσκολα περνάει απαρατήρητος." } },
+  { id:"biggie", name:"Biggie", gender:"Male", photoPos:"center 35%", available:false, cover:"assets/nina_cover.jpg",
     photos:["assets/biggie01.png","assets/biggie02.png","assets/biggie03.png","assets/biggie04.png"],
-    en:{ trait:"The gentle giant",         personality:["Gentle","Affectionate","Calm"],
-      description:"Don't let the size fool you — Biggie is the softest soul in the litter. He loves nothing more than a warm lap, a long nap, and your undivided attention. He'll follow you from room to room." },
-    el:{ trait:"Ο απαλός γίγαντας",        personality:["Τρυφερός","Στοργικός","Ήρεμος"],
-      description:"Μην παραπλανηθείς από το μέγεθός του — ο Biggie έχει την πιο μαλακή ψυχή στη φωλιά. Αγαπά μια ζεστή αγκαλιά, έναν μακρύ ύπνο και την αποκλειστική σου προσοχή. Θα σε ακολουθεί από δωμάτιο σε δωμάτιο." } },
-  { id:"rocky",    name:"Rocky",    gender:"Male",   photoPos:"center 38%",
-    photos:["assets/rocky01.png","assets/rocky02.png","assets/rocky03.png","assets/rocky04.png"],
-    en:{ trait:"Unstoppable energy",       personality:["Energetic","Playful","Spirited"],
-      description:"Rocky never stops. Bounces, zoomies, rolls, and bounces again. First awake and last to settle — but when he crashes, he's the sweetest snuggler. He needs a family that can keep up." },
-    el:{ trait:"Ακαταμάχητη ενέργεια",    personality:["Ενεργητικός","Παιχνιδιάρης","Ζωηρός"],
-      description:"Ο Rocky δεν σταματά ποτέ. Αναπηδά, τρέχει, κυλιέται και ξαναρχίζει. Πρώτος να ξυπνά και τελευταίος να ησυχάζει — αλλά όταν κοιμηθεί, είναι ο πιο γλυκός. Χρειάζεται μια οικογένεια που να μπορεί να τον ακολουθήσει." } },
-  { id:"kanelos",  name:"Kanelos",  gender:"Male",   photoPos:"center 45%",
-    photos:["assets/kanelos01.png","assets/kanelos02.png","assets/kanelos03.png","assets/kanelos04.png"],
-    en:{ trait:"The old soul",             personality:["Calm","Loyal","Perceptive"],
-      description:"Kanelos (Κανέλος — 'Cinnamon' in Greek) is the thoughtful one. He watches before he acts, warms up slowly, then becomes your most loyal companion. Wonderful with quieter homes." },
-    el:{ trait:"Η παλιά ψυχή",            personality:["Ήρεμος","Πιστός","Παρατηρητικός"],
-      description:"Ο Κανέλος είναι ο στοχαστικός. Παρατηρεί πριν δράσει, ζεσταίνεται αργά, και μετά γίνεται ο πιο πιστός σου σύντροφος. Ιδανικός για πιο ήσυχα σπίτια." } },
-  { id:"cinnamon", name:"Cinnamon", gender:"Female", photoPos:"center 30%",
-    photos:["assets/cinnamon01.png","assets/cinnamon02.png","assets/cinnamon03.png","assets/cinnamon04.png"],
-    en:{ trait:"Sweet with a little spice", personality:["Affectionate","Opinionated","Smart"],
-      description:"Cinnamon is warm, affectionate, and full of personality. She loves cuddles but has strong opinions — she'll tell you exactly what she wants. Brilliant, fast to learn, and endlessly entertaining." },
-    el:{ trait:"Γλυκιά με λίγο καρύκευμα", personality:["Στοργική","Γνωματευτική","Έξυπνη"],
-      description:"Η Cinnamon είναι ζεστή, τρυφερή και γεμάτη χαρακτήρα. Αγαπά τις αγκαλιές αλλά έχει δικές της απόψεις — θα σου πει ακριβώς τι θέλει. Εξαιρετικά έξυπνη, μαθαίνει γρήγορα και σε ψυχαγωγεί αδιάκοπα." } },
-  { id:"grizzly",  name:"Grizzly",  gender:"Female", photoPos:"center 40%",
-    photos:["assets/grizzly01.png","assets/grizzly02.png","assets/grizzly03.png","assets/grizzly04.png"],
-    en:{ trait:"Pure bear energy",         personality:["Independent","Loyal","Outdoorsy"],
-      description:"Big, fluffy, and utterly unbothered. Grizzly loves the outdoors, rolling in grass, and long afternoon naps. Independent but deeply loyal to the people she loves." },
-    el:{ trait:"Καθαρή αρκουδίσια ενέργεια", personality:["Ανεξάρτητη","Πιστή","Υπαίθρια"],
-      description:"Μεγάλη, χνουδωτή και εντελώς αδιάφορη. Η Grizzly λατρεύει την ύπαιθρο, το κύλισμα στο γρασίδι και τους μεσημεριανούς ύπνους. Ανεξάρτητη αλλά βαθιά πιστή στους ανθρώπους που αγαπά." } },
-  { id:"tupac",    name:"Tupac",    gender:"Male",   photoPos:"center 40%",
-    photos:["assets/tupac01.png","assets/tupac02.png","assets/tupac03.png","assets/tupac04.png"],
-    en:{ trait:"Born to lead",             personality:["Bold","Charismatic","Intelligent"],
-      description:"Tupac commands every room he enters. Bold, charismatic, and knows exactly who he is. First to stand up to bigger dogs, first to figure out how to open the food bin. Needs an experienced owner." },
-    el:{ trait:"Γεννημένος αρχηγός",       personality:["Τολμηρός","Χαρισματικός","Ευφυής"],
-      description:"Ο Tupac κυριαρχεί σε κάθε χώρο που μπαίνει. Τολμηρός, χαρισματικός και ξέρει ακριβώς ποιος είναι. Πρώτος να αντιμετωπίσει μεγαλύτερους σκύλους, πρώτος να ανακαλύψει πώς ανοίγει το φαγητό. Χρειάζεται έμπειρο ιδιοκτήτη." } },
-  { id:"nina",     name:"Nina",     gender:"Female", photoPos:"center top",
+    en:{ trait:"The fearless", coat:"Long hair, brown and white", personality:["Confident","Trainable","Smart"],
+      description:"Biggie is the leader of the pack. Always in control of the situation and absolutely confident. Very trainable, he loves being close to people and tries to stay near the house, but he is also smart enough to climb to where the food is, or even climb the fence." },
+    el:{ trait:"Ο ατρόμητος", coat:"Μακρύ τρίχωμα, καφέ και άσπρο", personality:["Σίγουρος","Εκπαιδεύσιμος","Έξυπνος"],
+      description:"Ο Biggie είναι ο αρχηγός της αγέλης. Πάντα με τον έλεγχο της κατάστασης και απόλυτα σίγουρος. Πολύ εκπαιδεύσιμος, λατρεύει να είναι κοντά στους ανθρώπους και προσπαθεί να μένει κοντά στο σπίτι, αλλά είναι και αρκετά έξυπνος ώστε να σκαρφαλώσει εκεί που είναι το φαγητό ή ακόμα και να περάσει τον φράχτη." } },
+  { id:"kanelos", name:"Kanelos", gender:"Male", photoPos:"center 45%",
+    photos:["assets/kanelos_01.jpg","assets/kanelos_02.jpg","assets/kanelos_04.jpg","assets/kanelos_05.jpg"],
+    video:"assets/kanelos_new_video.mp4", videoPoster:"assets/kanelos_new_poster.jpg",
+    en:{ trait:"The sensitive", coat:"Shorthair, beige", health:"Vaccinated and microchipped", neutered:"No", personality:["Gentle","Cuddly","Affectionate"],
+      description:"Kanelos's favourite place is on top of you. Sit down anywhere and he'll climb into your lap and fall asleep there. He's gentle and a little shy, and around louder dogs he tends to hang back. Give him a calm home and some patience, and he opens up quickly." },
+    el:{ trait:"Ο χαδιάρης", coat:"Κοντό, υπόξανθο", health:"Εμβολιασμένος, με μικροτσίπ", neutered:"Όχι", personality:["Ήρεμος","Χαδιάρης","Τρυφερός"],
+      description:"Το αγαπημένο σημείο του Kanelos είναι πάνω σου. Κάτσε οπουδήποτε και θα ανέβει στην αγκαλιά σου και θα αποκοιμηθεί εκεί. Είναι γλυκός και λίγο ντροπαλός, και δίπλα σε πιο ζωηρά σκυλιά συνήθως μένει πίσω. Με ένα ήρεμο σπίτι και λίγη υπομονή, ανοίγεται γρήγορα." } },
+  { id:"nina", name:"Nina", gender:"Female", photoPos:"center top", available:false, cover:"assets/biggie_cover.jpg",
     photos:["assets/nina01.png","assets/nina02.png","assets/nina03.png","assets/nina04.png"],
-    en:{ trait:"Small but mighty",         personality:["Fierce","Funny","Fearless"],
-      description:"Nina is the smallest of the litter and the biggest personality by far. She barks at shadows, chases the big boys, and demands affection on her own terms. She will own you." },
-    el:{ trait:"Μικρή αλλά δυνατή",        personality:["Φιέρα","Αστεία","Ατρόμητη"],
-      description:"Η Nina είναι η μικρότερη της φωλιάς και η μεγαλύτερη προσωπικότητα μακράν. Γαβγίζει στις σκιές, κυνηγάει τους μεγάλους, και απαιτεί στοργή με τους δικούς της όρους. Θα σε κάνει δικό της." } },
+    en:{ trait:"The old soul", coat:"Shorthair", personality:["Observant","Playful","Responsive"],
+      description:"Nina has a deep soul and is always looking to make eye contact with you. She reads and observes you a lot. Very playful, and quite rough at it with the other dogs, but very chilled and lovely when inside. Very responsive, and already listens very well.\n\nNina was quite sick and we had to take care of her inside the house for about a month. Now she is super strong again." },
+    el:{ trait:"Η σοφή", coat:"Κοντό τρίχωμα", personality:["Παρατηρητική","Παιχνιδιάρα","Ανταποκρίνεται"],
+      description:"Η Nina έχει βαθιά ψυχή και ψάχνει πάντα οπτική επαφή μαζί σου. Σε διαβάζει και σε παρατηρεί πολύ. Πολύ παιχνιδιάρα, και αρκετά άγρια στο παιχνίδι με τα άλλα σκυλάκια, αλλά πολύ ήρεμη και γλυκιά μέσα στο σπίτι. Ανταποκρίνεται πολύ και ήδη ακούει πολύ καλά.\n\nΗ Nina ήταν αρκετά άρρωστη και χρειάστηκε να τη φροντίσουμε μέσα στο σπίτι για περίπου ένα μήνα. Τώρα είναι ξανά super δυνατή." } },
+  { id:"grizzly", name:"Grizzly", gender:"Female", photoPos:"center 40%",
+    photos:["assets/grizzly_01.jpg","assets/grizzly_04.jpg","assets/grizzly_05.jpg","assets/grizzly_06.jpg"],
+    video:"assets/grizzly_new_video.mp4", videoPoster:"assets/grizzly_new_poster.jpg",
+    en:{ trait:"The leader", coat:"Shorthair, black", health:"Vaccinated and microchipped", neutered:"Yes", personality:["Energetic","Smart","Playful"],
+      description:"Grizzly picks things up fast. Teach her a new command in the morning and she'll usually know it by the afternoon. Outside, she's all energy and wants to do everything at once. Inside, she's calm, well-mannered and happy to settle." },
+    el:{ trait:"Η αρχηγός", coat:"Κοντό, μαύρο", health:"Εμβολιασμένη, με μικροτσίπ", neutered:"Ναι", personality:["Ενεργητική","Έξυπνη","Παιχνιδιάρα"],
+      description:"Η Grizzly μαθαίνει πολύ γρήγορα. Δείξε της μια καινούρια εντολή το πρωί και μέχρι το απόγευμα συνήθως την έχει μάθει. Έξω είναι όλο ενέργεια και θέλει να τα κάνει όλα μαζί. Μέσα στο σπίτι είναι άλλο σκυλί: ήρεμη, φρόνιμη και χαλαρώνει εύκολα." } },
+  { id:"lucky", name:"Lucky", gender:"Male", photoPos:"center top", available:false,
+    photos:["assets/lucky01.png","assets/lucky02.png","assets/lucky03.png","assets/lucky04.png"],
+    en:{ trait:"The curious", coat:"Shorthair, black and white", personality:["Playful","Curious","Shy"],
+      description:"Lucky is a playful and curious dog. He loves playing with his siblings and at the same time feels comfortable being by himself. He has a very gentle soul and doesn't like loud sounds or fast movements. He is still working on his confidence with humans, but once he trusts you he will welcome you into his world. He can be very shy." },
+    el:{ trait:"Ο περίεργος", coat:"Κοντό τρίχωμα, μαύρο και άσπρο", personality:["Παιχνιδιάρης","Περίεργος","Ντροπαλός"],
+      description:"Ο Lucky είναι ένα παιχνιδιάρικο και περίεργο σκυλάκι. Λατρεύει να παίζει με τα αδέλφια του και ταυτόχρονα νιώθει άνετα και μόνος του. Έχει πολύ τρυφερή ψυχή και δεν του αρέσουν οι δυνατοί ήχοι και οι γρήγορες κινήσεις. Εξακολουθεί να χτίζει την αυτοπεποίθησή του με τους ανθρώπους, αλλά μόλις σε εμπιστευτεί θα σε καλωσορίσει στον κόσμο του. Μπορεί να είναι πολύ ντροπαλός." } },
+  { id:"rocky", name:"Rocky", gender:"Male", photoPos:"center 38%", available:false,
+    photos:["assets/rocky01.png","assets/rocky02.png","assets/rocky03.png","assets/rocky04.png"],
+    en:{ trait:"The kind", coat:"", personality:["Gentle","Sweet","Easygoing"],
+      description:"Very gentle and super sweet. He doesn't like rough play and always looks deep into your eyes. A very easygoing little friend." },
+    el:{ trait:"Ο τρυφερός", coat:"", personality:["Τρυφερός","Γλυκός","Χαλαρός"],
+      description:"Πολύ τρυφερός και super γλυκός. Δεν του αρέσει το άγριο παιχνίδι και σε κοιτάζει πάντα βαθιά στα μάτια. Ένας πολύ χαλαρός μικρός φίλος." } },
 ];
 
 // ─── Google Form ──────────────────────────────────────────────────────────────
@@ -410,23 +437,18 @@ function Nav({ onHome, lang, setLang, isHome }) {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 function Hero({ onAdopt }) {
-  const T = TR[React.useContext(LangContext)];
+  const lang = React.useContext(LangContext);
+  const T = TR[lang];
   return (
     <section style={{
       background:C.pale, minHeight:'100vh',
       display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
       padding:'120px clamp(20px,5vw,80px) 80px', textAlign:'center', position:'relative', overflow:'hidden',
     }}>
-      <div style={{position:'relative', zIndex:1, maxWidth:700}}>
-        <span style={{
-          display:'inline-flex', alignItems:'center', gap:6,
-          border:`1.5px solid rgba(108,44,37,0.3)`, color:C.brown,
-          borderRadius:50, padding:'6px 20px', fontSize:13, fontWeight:600,
-          marginBottom:36, letterSpacing:'0.07em',
-        }}>{T.location}</span>
+      <div style={{position:'relative', zIndex:1, maxWidth: lang==='el' ? 960 : 700}}>
         <h1 style={{
-          fontSize:'clamp(48px,8vw,92px)', fontWeight:800, lineHeight:1.06,
-          color:C.dark, marginBottom:24, textWrap:'balance',
+          fontSize: lang==='el' ? 'clamp(38px,5.5vw,64px)' : 'clamp(48px,8vw,92px)', fontWeight:800, lineHeight:1.06,
+          color:C.dark, marginBottom:24, whiteSpace:'pre-line',
         }}>{T.heroHeadline}</h1>
         <p style={{
           color:'rgba(108,44,37,0.7)', fontSize:'clamp(15px,2vw,19px)',
@@ -460,16 +482,16 @@ function Story() {
   const T = TR[React.useContext(LangContext)];
   return (
     <section style={{background:C.butter, padding:'72px clamp(20px,5vw,80px)'}}>
-      <div style={{maxWidth:840, margin:'0 auto', display:'flex', gap:48, alignItems:'flex-start', flexWrap:'wrap'}}>
-        <div style={{
-          width:80, height:80, borderRadius:'50%',
-          background:C.lilac, display:'flex', alignItems:'center', justifyContent:'center',
-          fontSize:38, flexShrink:0, boxShadow:'0 4px 20px rgba(235,94,58,0.35)',
-        }}>🐕</div>
+      <div style={{maxWidth:920, margin:'0 auto', display:'flex', gap:48, alignItems:'center', flexWrap:'wrap'}}>
+        <img src="assets/story.webp" alt="" style={{
+          width:'clamp(240px,34vw,340px)', aspectRatio:'3 / 4', objectFit:'cover', borderRadius:24,
+          flexShrink:0, boxShadow:'0 10px 32px rgba(108,44,37,0.22)',
+        }}/>
         <div style={{flex:1, minWidth:260}}>
           <h2 style={{fontSize:'clamp(26px,4vw,36px)', fontWeight:800, color:C.brown, marginBottom:18, lineHeight:1.2}}>{T.theirStory}</h2>
           <p style={{fontSize:17, lineHeight:1.85, color:'rgba(108,44,37,0.78)', marginBottom:14}}>{T.storyP1}</p>
-          <p style={{fontSize:17, lineHeight:1.85, color:'rgba(108,44,37,0.78)'}}>{T.storyP2}</p>
+          <p style={{fontSize:17, lineHeight:1.85, color:'rgba(108,44,37,0.78)', marginBottom:14}}>{T.storyP2}</p>
+          <p style={{fontSize:17, lineHeight:1.85, color:'rgba(108,44,37,0.78)'}}>{T.storyP3}</p>
         </div>
       </div>
     </section>
@@ -483,22 +505,25 @@ function PuppyCard({ puppy, onClick, showBadge = true, cornerRadius = 22 }) {
   const pd = puppy[lang] || puppy.en;
   const [hov, setHov] = React.useState(false);
   return (
-    <div onClick={onClick} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+    <div onClick={puppy.available===false ? undefined : onClick}
+      onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
       style={{
-        background:C.amber, borderRadius:cornerRadius, overflow:'hidden', cursor:'pointer',
-        transform: hov ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
-        boxShadow: hov ? '0 24px 52px rgba(108,44,37,0.24)' : '0 4px 14px rgba(108,44,37,0.1)',
+        background:C.amber, borderRadius:cornerRadius, overflow:'hidden',
+        cursor: puppy.available===false ? 'default' : 'pointer',
+        transform: hov && puppy.available!==false ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+        boxShadow: hov && puppy.available!==false ? '0 24px 52px rgba(108,44,37,0.24)' : '0 4px 14px rgba(108,44,37,0.1)',
         transition:'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
       }}>
       <div style={{height:200, overflow:'hidden', position:'relative'}}>
-        <img src={puppy.photos[0]} alt={puppy.name}
-          style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:puppy.photoPos||'center top',display:'block'}}/>
+        {!puppy.noPhoto && <img src={puppy.cover || puppy.photos[0]} alt={puppy.name}
+          style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:puppy.photoPos||'center top',display:'block',
+            filter: puppy.available===false ? 'grayscale(0.85) opacity(0.75)' : 'none'}}/>}
         {showBadge && (
           <span style={{
             position:'absolute', top:12, right:12,
             background:C.brown, color:C.amber,
             fontSize:10, fontWeight:700, padding:'4px 11px', borderRadius:50, letterSpacing:'0.06em',
-          }}>{T.available}</span>
+          }}>{puppy.available===false ? T.unavailable : T.available}</span>
         )}
         <span style={{
           position:'absolute', bottom:12, left:12,
@@ -516,7 +541,7 @@ function PuppyCard({ puppy, onClick, showBadge = true, cornerRadius = 22 }) {
           ))}
         </div>
         <div style={{color:C.brown,fontWeight:700,fontSize:14,opacity:hov?1:0.55,transition:'opacity 0.2s'}}>
-          {T.meetArrow(puppy.name)}
+          {T.meetArrow(puppy.name, puppy.gender)}
         </div>
       </div>
     </div>
@@ -536,7 +561,7 @@ function PuppiesGrid({ onSelectPuppy }) {
           {T.meetPuppiesSub}
         </p>
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(240px,1fr))',gap:28}}>
-          {PUPPIES.map(p => (
+          {[...PUPPIES].sort((a,b)=>(a.available===false?1:0)-(b.available===false?1:0)).map(p => (
             <PuppyCard key={p.id} puppy={p} onClick={()=>onSelectPuppy(p)}/>
           ))}
         </div>
@@ -554,11 +579,11 @@ function HowToAdopt({ onStart }) {
         <h2 style={{fontSize:'clamp(26px,4vw,44px)',fontWeight:800,color:C.lilac,marginBottom:56,textAlign:'center'}}>
           {T.howToAdopt}
         </h2>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:40,marginBottom:60}}>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))',columnGap:40,rowGap:0,marginBottom:60}}>
           {T.steps.map(s => (
-            <div key={s.n} style={{textAlign:'center'}}>
+            <div key={s.n} style={{textAlign:'center',display:'grid',gridRow:'span 3',gridTemplateRows:'subgrid',alignContent:'start',marginBottom:40}}>
               <div style={{fontSize:52,fontWeight:800,color:'rgba(108,44,37,0.18)',lineHeight:1,marginBottom:18}}>{s.n}</div>
-              <h3 style={{fontSize:22,fontWeight:700,color:C.brown,marginBottom:10}}>{s.title}</h3>
+              <h3 className="step-title" style={{fontSize:22,fontWeight:700,color:C.brown,marginBottom:10}}>{s.title}</h3>
               <p style={{fontSize:15,color:'rgba(108,44,37,0.65)',lineHeight:1.75}}>{s.desc}</p>
             </div>
           ))}
@@ -580,14 +605,35 @@ function HowToAdopt({ onStart }) {
   );
 }
 
+// ─── About us ─────────────────────────────────────────────────────────────────
+function AboutUs() {
+  const T = TR[React.useContext(LangContext)];
+  return (
+    <section style={{background:C.cream, padding:'80px clamp(20px,5vw,80px)'}}>
+      <div style={{maxWidth:920, margin:'0 auto', display:'flex', gap:48, alignItems:'stretch', flexWrap:'wrap'}}>
+        <img src="assets/about-us.jpg" alt="Small Animal Rescuers" style={{
+          width:'clamp(220px,30vw,320px)', aspectRatio:'1/1', objectFit:'cover', borderRadius:24,
+          flexShrink:0, boxShadow:'0 10px 32px rgba(108,44,37,0.22)',
+        }}/>
+        <div style={{flex:1, minWidth:260}}>
+          <h2 style={{fontSize:'clamp(26px,4vw,44px)',fontWeight:800,color:C.brown,marginBottom:32}}>
+            {T.aboutUsHeading}
+          </h2>
+          <p style={{fontSize:17,lineHeight:1.85,color:'rgba(108,44,37,0.78)',marginBottom:20}}>{T.aboutUsP1}</p>
+          <p style={{fontSize:17,lineHeight:1.85,color:'rgba(108,44,37,0.78)'}}>{T.aboutUsP2}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Footer ───────────────────────────────────────────────────────────────────
 function Footer() {
   const T = TR[React.useContext(LangContext)];
   return (
     <footer style={{background:C.brownDark,padding:'56px 40px',textAlign:'center'}}>
       <img src="assets/logooo.png" alt="Small Animal Rescuers" style={{height:60,borderRadius:8,marginBottom:16,opacity:0.88}}/>
-      <p style={{color:'rgba(248,245,232,0.35)',fontSize:13,marginTop:4}}>{T.footerLocation}</p>
-      <p style={{color:'rgba(248,245,232,0.18)',fontSize:12,marginTop:20}}>{T.footerCopy}</p>
+<p style={{color:'rgba(248,245,232,0.18)',fontSize:12,marginTop:20}}>{T.footerCopy}</p>
     </footer>
   );
 }
@@ -662,13 +708,17 @@ function PuppyPage({ puppy, allPuppies, onBack, onSelectPuppy }) {
                 style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:puppy.photoPos||'center top',borderRadius:24,cursor:'zoom-in'}}/>
             </div>
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:12}}>
-              {[1,2,3].map(n => (
+              {puppy.photos.slice(1).map((_, i) => i + 1).map(n => (
                 <div key={n} style={{background:'#4A1E1A',borderRadius:14,height:108,overflow:'hidden'}}>
                   <img src={puppy.photos[n]} alt={`${puppy.name} ${n}`} onClick={()=>setLightbox(n)}
                     style={{width:'100%',height:'100%',objectFit:'cover',cursor:'zoom-in'}}/>
                 </div>
               ))}
             </div>
+            {puppy.video && (
+              <video src={puppy.video} poster={puppy.videoPoster} controls playsInline preload="metadata"
+                style={{width:'100%',maxHeight:440,marginTop:12,borderRadius:14,background:'#4A1E1A',display:'block'}}/>
+            )}
           </div>
           <div>
             <span style={{
@@ -676,17 +726,26 @@ function PuppyPage({ puppy, allPuppies, onBack, onSelectPuppy }) {
               border:'1px solid rgba(235,94,58,0.28)',color:C.lilac,
               borderRadius:50,padding:'5px 16px',fontSize:12,fontWeight:600,
               letterSpacing:'0.07em',marginBottom:18,
-            }}>{T.genderLabel(puppy.gender)} · {T.months} · {T.available2}</span>
+            }}>{T.genderLabel(puppy.gender)} · {T.months} · {puppy.available===false ? T.unavailable2 : T.available2}</span>
             <h1 style={{fontSize:'clamp(44px,6vw,72px)',fontWeight:800,color:C.cream,lineHeight:1,marginBottom:8}}>
               {puppy.name}
             </h1>
             <p style={{fontSize:18,color:C.lilac,fontStyle:'italic',marginBottom:30}}>{pd.trait}</p>
-            <p style={{fontSize:16,lineHeight:1.85,color:'rgba(248,245,232,0.72)',marginBottom:32}}>{pd.description}</p>
+            {pd.coat && <p style={{fontSize:14,fontWeight:600,color:C.butter,marginBottom:8}}>{pd.coat}</p>}
+            {pd.health && <p style={{fontSize:14,color:'rgba(248,245,232,0.6)',marginBottom:4}}><span style={{fontWeight:600,color:C.butter}}>{T.healthLabel}:</span> {pd.health}</p>}
+            {pd.neutered && <p style={{fontSize:14,color:'rgba(248,245,232,0.6)',marginBottom:16}}><span style={{fontWeight:600,color:C.butter}}>{T.neuteredLabel}:</span> {pd.neutered}</p>}
+            <p style={{fontSize:16,lineHeight:1.85,color:'rgba(248,245,232,0.72)',marginBottom:32,whiteSpace:'pre-line'}}>{pd.description}</p>
             <div style={{display:'flex',gap:8,flexWrap:'wrap',marginBottom:40}}>
               {pd.personality.map(t => (
                 <span key={t} style={{background:'rgba(235,94,58,0.14)',color:C.lilac,border:'1px solid rgba(235,94,58,0.28)',fontSize:13,fontWeight:600,padding:'6px 16px',borderRadius:50}}>{t}</span>
               ))}
             </div>
+            {puppy.available===false ? (
+              <div style={{
+                display:'block',background:'rgba(248,245,232,0.1)',color:'rgba(248,245,232,0.7)',
+                padding:'16px 0',borderRadius:50,fontSize:16,fontWeight:700,textAlign:'center',width:'100%',
+              }}>{T.unavailableMsg(puppy.name)}</div>
+            ) : (
             <a href={applyUrl} target="_blank" rel="noopener noreferrer" style={{
               display:'block',background:C.lilac,color:C.brown,
               padding:'16px 0',borderRadius:50,fontSize:16,fontWeight:700,
@@ -695,14 +754,15 @@ function PuppyPage({ puppy, allPuppies, onBack, onSelectPuppy }) {
             }}
               onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-3px)';e.currentTarget.style.boxShadow='0 10px 28px rgba(235,94,58,0.45)';}}
               onMouseLeave={e=>{e.currentTarget.style.transform='translateY(0)';e.currentTarget.style.boxShadow='none';}}
-            >{T.applyFor(puppy.name)}</a>
-            <p style={{fontSize:12,color:'rgba(248,245,232,0.28)',marginTop:12,textAlign:'center'}}>{T.vetCostsShort}</p>
+            >{T.applyFor(puppy.name, puppy.gender)}</a>
+            )}
+            {puppy.available!==false && <p style={{fontSize:12,color:'rgba(248,245,232,0.28)',marginTop:12,textAlign:'center'}}>{T.vetCostsShort}</p>}
           </div>
         </div>
         <div style={{marginBottom:80}}>
           <h3 style={{color:C.butter,fontSize:20,fontWeight:700,marginBottom:24}}>{T.alsoAvail}</h3>
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))',gap:20}}>
-            {allPuppies.filter(p=>p.id!==puppy.id).slice(0,4).map(p => (
+            {allPuppies.filter(p=>p.id!==puppy.id && p.available!==false).slice(0,4).map(p => (
               <PuppyCard key={p.id} puppy={p} onClick={()=>onSelectPuppy(p)} cornerRadius={16}/>
             ))}
           </div>
@@ -742,6 +802,7 @@ function App() {
           <Story/>
           <PuppiesGrid onSelectPuppy={goToPuppy}/>
           <HowToAdopt onStart={scrollToPuppies}/>
+          <AboutUs/>
           <Footer/>
         </>
       ) : (
