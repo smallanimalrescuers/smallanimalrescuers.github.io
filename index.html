@@ -45,7 +45,8 @@
     * { -webkit-font-smoothing: antialiased; }
     @media (max-width: 640px) {
       .hero-section { min-height: auto !important; padding: 110px 20px 36px !important; border: 0 !important; }
-      .story-section { padding-top: 24px !important; border: 0 !important; box-shadow: none !important; }
+      .hero-section { position: relative; z-index: 0; }
+      .story-section { padding-top: 24px !important; border: 0 !important; box-shadow: none !important; margin-top: -2px !important; position: relative; z-index: 1; }
       .story-img { width: 100% !important; aspect-ratio: 4 / 5 !important; }
       .about-img { width: 100% !important; }
       .about-section { padding-top: 48px !important; }
@@ -264,7 +265,7 @@ const PUPPIES = [
     video:"assets/cinnamon_new_video.mp4", videoPoster:"assets/cinnamon_new_poster.jpg",
     en:{ trait:"The cheeky", coat:"Shorthair, beige", health:"Vaccinated and microchipped", neutered:"Yes", personality:["Friendly","Confident","Playful"],
       description:"he's the smallest of her siblings but that doesn't stop her from being the center attention. She's friendly, confident and always up for fun.\n\nShe needs no time to warm up. She walks up to every person, dog and cat as if they've already met, and within minutes she's playing with you like you've known each other for years." },
-    el:{ trait:"Η χαριτωμένη", coat:"Κοντό, υπόξανθο", health:"Εμβολιασμένη, με μικροτσίπ", neutered:"Ναι", personality:["Κοινωνική","Θαρραλέα","Παιχνιδιάρα"],
+    el:{ trait:"Η χαριτωμένη", coat:"Κοντό τρίχωμα, υπόξανθο", health:"Εμβολιασμένη, με μικροτσίπ", neutered:"Ναι", personality:["Κοινωνική","Θαρραλέα","Παιχνιδιάρα"],
       description:"Η Cinnamon είναι η πιο μικρή της γέννας, αλλά δεν δείχνει να το έχει πάρει χαμπάρι. Είναι φιλική, θαρραλέα και πάντα έτοιμη για παιχνίδι.\n\nΔεν της χρειάζεται χρόνος για να σε συμπαθήσει. Πλησιάζει κάθε άνθρωπο, σκύλο και γάτα σαν να γνωρίζονται από πριν, και σε λίγα λεπτά παίζει μαζί σου σαν να είστε φίλοι χρόνια." } },
   { id:"tupac", name:"Tupac", gender:"Male", photoPos:"center 55%",
     cover:"assets/tupac_cover.jpg",
@@ -272,7 +273,7 @@ const PUPPIES = [
     video:"assets/tupac_new_video.mp4", videoPoster:"assets/tupac_new_poster.jpg",
     en:{ trait:"The people lover", coat:"Long hair, multicoloured", health:"Vaccinated and microchipped", neutered:"No", personality:["Cuddly","Funny","Playful"],
       description:"Tupac has never once managed to play it cool when someone arrives at the gate. He's warm, funny and happiest when he's getting cuddles, attention, or both. He also has a long, multicoloured coat that turns heads wherever he goes." },
-    el:{ trait:"Ο αγαπησιάρης", coat:"Μακρύ, πολύχρωμο", health:"Εμβολιασμένος, με μικροτσίπ", neutered:"Όχι", personality:["Χαδιάρης","Αστείος","Παιχνιδιάρης"],
+    el:{ trait:"Ο αγαπησιάρης", coat:"Μακρύ τρίχωμα, πολύχρωμο", health:"Εμβολιασμένος, με μικροτσίπ", neutered:"Όχι", personality:["Χαδιάρης","Αστείος","Παιχνιδιάρης"],
       description:"Ο Tupac δεν έχει καταφέρει ποτέ να κρύψει τον ενθουσιασμό του όταν κάποιος έρχεται στην αυλόπορτα. Είναι τρυφερός, αστείος και πιο ευτυχισμένος από ποτέ όταν του δίνεις χάδια, προσοχή ή και τα δύο. Και με αυτό το μακρύ, πολύχρωμο τρίχωμα, δύσκολα περνάει απαρατήρητος." } },
   { id:"biggie", name:"Biggie", gender:"Male", photoPos:"center 35%", available:false, cover:"assets/nina_cover.jpg",
     photos:["assets/biggie01.jpg","assets/biggie02.jpg","assets/biggie03.jpg","assets/biggie04.jpg"],
@@ -285,7 +286,7 @@ const PUPPIES = [
     video:"assets/kanelos_new_video.mp4", videoPoster:"assets/kanelos_new_poster.jpg",
     en:{ trait:"The sensitive", coat:"Shorthair, beige", health:"Vaccinated and microchipped", neutered:"No", personality:["Gentle","Cuddly","Affectionate"],
       description:"Kanelos's favourite place is on top of you. Sit down anywhere and he'll climb into your lap and fall asleep there. He's gentle and a little shy, and around louder dogs he tends to hang back. Give him a calm home and some patience, and he opens up quickly." },
-    el:{ trait:"Ο χαδιάρης", coat:"Κοντό, υπόξανθο", health:"Εμβολιασμένος, με μικροτσίπ", neutered:"Όχι", personality:["Ήρεμος","Χαδιάρης","Τρυφερός"],
+    el:{ trait:"Ο χαδιάρης", coat:"Κοντό τρίχωμα, υπόξανθο", health:"Εμβολιασμένος, με μικροτσίπ", neutered:"Όχι", personality:["Ήρεμος","Χαδιάρης","Τρυφερός"],
       description:"Το αγαπημένο σημείο του Kanelos είναι πάνω σου. Κάτσε οπουδήποτε και θα ανέβει στην αγκαλιά σου και θα αποκοιμηθεί εκεί. Είναι γλυκός και λίγο ντροπαλός, και δίπλα σε πιο ζωηρά σκυλιά συνήθως μένει πίσω. Με ένα ήρεμο σπίτι και λίγη υπομονή, ανοίγεται γρήγορα." } },
   { id:"nina", name:"Nina", gender:"Female", photoPos:"center top", available:false, cover:"assets/biggie_cover.jpg",
     photos:["assets/nina01.jpg","assets/nina02.jpg","assets/nina03.jpg","assets/nina04.jpg"],
@@ -298,7 +299,7 @@ const PUPPIES = [
     video:"assets/grizzly_new_video.mp4", videoPoster:"assets/grizzly_new_poster.jpg",
     en:{ trait:"The leader", coat:"Shorthair, black", health:"Vaccinated and microchipped", neutered:"Yes", personality:["Energetic","Smart","Playful"],
       description:"Grizzly picks things up fast. Teach her a new command in the morning and she'll usually know it by the afternoon. Outside, she's all energy and wants to do everything at once. Inside, she's calm, well-mannered and happy to settle." },
-    el:{ trait:"Η αρχηγός", coat:"Κοντό, μαύρο", health:"Εμβολιασμένη, με μικροτσίπ", neutered:"Ναι", personality:["Ενεργητική","Έξυπνη","Παιχνιδιάρα"],
+    el:{ trait:"Η αρχηγός", coat:"Κοντό τρίχωμα, μαύρο", health:"Εμβολιασμένη, με μικροτσίπ", neutered:"Ναι", personality:["Ενεργητική","Έξυπνη","Παιχνιδιάρα"],
       description:"Η Grizzly μαθαίνει πολύ γρήγορα. Δείξε της μια καινούρια εντολή το πρωί και μέχρι το απόγευμα συνήθως την έχει μάθει. Έξω είναι όλο ενέργεια και θέλει να τα κάνει όλα μαζί. Μέσα στο σπίτι είναι άλλο σκυλί: ήρεμη, φρόνιμη και χαλαρώνει εύκολα." } },
   { id:"lucky", name:"Lucky", gender:"Male", photoPos:"center top", available:false,
     photos:["assets/lucky01.jpg","assets/lucky02.jpg","assets/lucky03.jpg","assets/lucky04.jpg"],
@@ -638,9 +639,9 @@ function AboutUs() {
 function Footer() {
   const T = TR[React.useContext(LangContext)];
   return (
-    <footer style={{background:C.brownDark,padding:'56px 40px',textAlign:'center'}}>
-      <img src="assets/logooo.png" alt="Small Animal Rescuers" style={{height:60,borderRadius:8,marginBottom:16,opacity:0.88}}/>
-<p style={{color:'rgba(248,245,232,0.18)',fontSize:12,marginTop:20}}>{T.footerCopy}</p>
+    <footer style={{background:C.brownDark,padding:'20px 20px',textAlign:'center'}}>
+      <img src="assets/logooo.png" alt="Small Animal Rescuers" style={{height:40,borderRadius:6,marginBottom:6,opacity:0.88,display:'block',margin:'0 auto 6px'}}/>
+<p style={{color:'rgba(248,245,232,0.3)',fontSize:12,margin:0}}>{T.footerCopy}</p>
     </footer>
   );
 }
