@@ -31,8 +31,8 @@
     body[data-lang="el"] h3 { font-size: clamp(22px, 3vw, 30px) !important; }
     body[data-lang="el"] h3.step-title { font-size: clamp(18px, 1.9vw, 22px) !important; }
   </style>
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -536,7 +536,7 @@ function PuppyCard({ puppy, onClick, showBadge = true, cornerRadius = 22 }) {
         transition:'all 0.3s cubic-bezier(0.34,1.56,0.64,1)',
       }}>
       <div style={{height:200, overflow:'hidden', position:'relative'}}>
-        {!puppy.noPhoto && <img src={puppy.cover || puppy.photos[0]} alt={puppy.name}
+        {!puppy.noPhoto && <img src={puppy.cover || puppy.photos[0]} alt={puppy.name} loading="lazy"
           style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:puppy.photoPos||'center top',display:'block',
             filter: puppy.available===false ? 'grayscale(0.85) opacity(0.75)' : 'none'}}/>}
         {showBadge && (
@@ -731,7 +731,7 @@ function PuppyPage({ puppy, allPuppies, onBack, onSelectPuppy }) {
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:12}}>
               {puppy.photos.slice(1).map((_, i) => i + 1).map(n => (
                 <div key={n} style={{background:'#4A1E1A',borderRadius:14,height:108,overflow:'hidden'}}>
-                  <img src={puppy.photos[n]} alt={`${puppy.name} ${n}`} onClick={()=>setLightbox(n)}
+                  <img src={puppy.photos[n]} alt={`${puppy.name} ${n}`} loading="lazy" onClick={()=>setLightbox(n)}
                     style={{width:'100%',height:'100%',objectFit:'cover',cursor:'zoom-in'}}/>
                 </div>
               ))}
@@ -767,7 +767,8 @@ function PuppyPage({ puppy, allPuppies, onBack, onSelectPuppy }) {
                 padding:'16px 0',borderRadius:50,fontSize:16,fontWeight:700,textAlign:'center',width:'100%',
               }}>{T.unavailableMsg(puppy.name)}</div>
             ) : (
-            <a href={applyUrl} target="_blank" rel="noopener noreferrer" style={{
+            <a href={applyUrl} target="_blank" rel="noopener noreferrer"
+              onClick={()=>track('apply-click/'+puppy.id,{title:'Apply: '+puppy.name,event:true})} style={{
               display:'block',background:C.lilac,color:C.brown,
               padding:'16px 0',borderRadius:50,fontSize:16,fontWeight:700,
               textAlign:'center',textDecoration:'none',width:'100%',
@@ -793,10 +794,66 @@ function PuppyPage({ puppy, allPuppies, onBack, onSelectPuppy }) {
   );
 }
 
+// ─── Analytics (GoatCounter, no cookies) ──────────────────────────────────────
+// count.js loads async and is auto-pageview-disabled (no_onload) because this is a
+// single-page app: we send every pageview ourselves, including the first one.
+// Calls made before count.js has loaded are queued; if it is blocked they are dropped.
+const _gcQueue = [];
+let _gcLastPath = null;
+function _gcSend(path, opts) {
+  const ref = _gcLastPath ? location.origin + _gcLastPath : undefined;  // internal navigation, not the original referrer
+  const vars = Object.assign({ path }, ref ? { referrer: ref } : {}, opts);
+  window.goatcounter.count(vars);
+  if (!opts.event) _gcLastPath = path.charAt(0) === '/' ? path : '/' + path;
+}
+function track(path, opts = {}) {
+  try {
+    if (window.goatcounter && typeof window.goatcounter.count === 'function') _gcSend(path, opts);
+    else if (_gcQueue.length < 20) _gcQueue.push([path, opts]);
+  } catch (e) {}
+}
+window.__gcReady = () => {
+  try { while (_gcQueue.length) { const q = _gcQueue.shift(); _gcSend(q[0], q[1]); } } catch (e) {}
+};
+
+// ─── Hash routing: /#/puppy/<id> ──────────────────────────────────────────────
+function puppyFromHash() {
+  const m = /^#\/puppy\/([^/?#]+)/.exec(location.hash);
+  if (!m) return null;
+  let id;
+  try { id = decodeURIComponent(m[1]); } catch (e) { return null; }
+  return PUPPIES.find(p => p.id === id) || null;
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 function App() {
-  const [lang, setLang]       = React.useState('en');
-  const [selected, setSelected] = React.useState(null);
+  const [lang, setLangState]  = React.useState('en');
+  const [selected, setSelected] = React.useState(puppyFromHash);
+  const firstView = React.useRef(true);
+
+  const setLang = code => {
+    if (code === lang) return;
+    setLangState(code);
+    track('lang/' + code, { event: true });
+  };
+
+  // Browser back/forward and typed URLs: keep the page in sync with the hash.
+  React.useEffect(() => {
+    if (/^#\/puppy\//.test(location.hash) && !puppyFromHash()) {
+      history.replaceState(null, '', location.pathname + location.search);  // unknown puppy -> clean home URL
+    }
+    const sync = () => setSelected(puppyFromHash());
+    window.addEventListener('hashchange', sync);
+    return () => window.removeEventListener('hashchange', sync);
+  }, []);
+
+  // One pageview per route change (first load included, counted here, not by count.js).
+  React.useEffect(() => {
+    const first = firstView.current;
+    firstView.current = false;
+    if (selected) track('/puppy/' + selected.id, { title: selected.name });
+    else track('/', first ? {} : { title: 'Home' });
+  }, [selected]);
 
   React.useEffect(() => {
     document.body.dataset.lang = lang;
@@ -806,8 +863,11 @@ function App() {
     document.body.style.paddingBottom = selected ? '0' : 'clamp(56px,7vw,86px)';
   }, [selected]);
 
-  const goToPuppy = p => { setSelected(p); window.scrollTo({top:0,behavior:'instant'}); };
-  const goHome    = ()  => setSelected(null);
+  const goToPuppy = p => { location.hash = '#/puppy/' + p.id; window.scrollTo({top:0,behavior:'instant'}); };
+  const goHome    = ()  => {
+    if (location.hash.indexOf('#/') === 0) history.pushState(null, '', location.pathname + location.search);
+    setSelected(null);
+  };
   const scrollToPuppies = () => {
     const el = document.getElementById('puppies');
     if (el) { const top = el.getBoundingClientRect().top + window.scrollY - 70; window.scrollTo({top,behavior:'smooth'}); }
@@ -840,5 +900,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App/>);
 
   </script>
+
+  <!-- ANALYTICS: replace GOATCOUNTER_CODE below with the site code from goatcounter.com (the part before .goatcounter.com). It appears only here. -->
+  <script data-goatcounter="https://GOATCOUNTER_CODE.goatcounter.com/count"
+          data-goatcounter-settings='{"no_onload":true}'
+          onload="window.__gcReady && window.__gcReady()"
+          async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
